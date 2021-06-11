@@ -1,0 +1,33 @@
+FROM python:3.7-slim-buster
+RUN apt-get update && apt-get -y install gcc
+MAINTAINER Mike Ryan "mikeryan56@gmail.com"
+EXPOSE 5000
+COPY . /app
+WORKDIR /app
+# Evironment Variables
+# Application information
+ENV USE_ENV='docker'
+ENV APP_VERSION='2020.01.05'
+ENV OWNER='your name'
+ENV WEBSITE='https://yoursite.com/support'
+# Application Configuration
+ENV HOST_DOMAIN='https://yoursite.com'
+ENV DEBUG=True
+ENV RELEASE_ENV='dev'
+#prd for production or 'dev' for development
+ENV SQLALCHEMY_DATABASE_URI='sqlite:///sqlite_db/api.db'
+ENV SECRET_KEY='you-secret-key'
+ENV GITHUB_CLIENT_ID="your-github-client-id"
+ENV GITHUB_CLIENT_SECRET="your-github-client-secret"
+ENV MOCK_GITHUB=False
+# Loguru settings
+ENV LOGURU_RETENTION='10 days'
+ENV LOGURU_ROTATION='100 MB'
+# Leave intact for license
+ENV CREATED_BY='Mike Ryan'
+ENV LICENSE_TYPE='MIT'
+ENV LICENSE_LINK='https://github.com/devsetgo/test-api/blob/master/LICENSE'
+
+RUN pip install -r requirements.txt
+# CMD ["python3", "main.py"]
+CMD ["gunicorn",  "-c", "gunicorn_cfg.py", "main:app"]

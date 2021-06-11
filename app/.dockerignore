@@ -1,0 +1,15 @@
+# ignore project files
+.git
+.github
+settings.json
+scratch_pad/
+.vscode/
+venv/
+_venv/
+flake8_report/
+.coverage
+coverage.xml
+coverage.svg
+api.db
+
+

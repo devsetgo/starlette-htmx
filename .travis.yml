@@ -1,0 +1,37 @@
+# Config file for automatic testing at travis-ci.org
+# sudo: false  # http://docs.travis-ci.com/user/migrating-from-legacy/
+# language: python
+# python:
+
+#   - "3.6"
+#   -
+#   # PyPy versions
+#   # - "pypy3.5"
+# install:
+#   - pip install cookiecutter
+#   - pip install invoke==1.2.0
+# script:
+#   - invoke test
+
+
+dist: xenial
+language: python
+cache: pip
+
+before_install:
+  - cd app
+  - pip install --upgrade pip setuptools
+install:
+  - pip install -r requirements/dev.txt
+  # - pip install codecov
+# before_script: cd app
+
+script:
+  - python3 -m pytest
+after_success:
+  - codecov
+
+matrix:
+  include:
+    - python: '3.7'
+    - python: '3.6'

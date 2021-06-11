@@ -1,0 +1,6 @@
+# ignore all files
+*
+# except this one
+!.gitignore
+!.task.json
+!.sample_people.json
